@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScholarCraft | Professional Academic Writing Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --cream: #faf7f2;
+    --gold: #c9993a;
+    --gold-light: #e8c97a;
+    --deep: #1a1a2e;
+    --muted: #6b6b6b;
+    --border: #e0d8cc;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--ink); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: .9rem; font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--ink); color: var(--cream) !important;
+    padding: .55rem 1.3rem; border-radius: 4px;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--white) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    padding: 8rem 5% 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(201,153,58,.12) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(26,26,46,.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; max-width: 1200px; width: 100%;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(201,153,58,.12);
+    border: 1px solid rgba(201,153,58,.3);
+    color: var(--gold); padding: .4rem 1rem;
+    border-radius: 50px; font-size: .8rem; font-weight: 600;
+    letter-spacing: .05em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900; line-height: 1.1;
+    letter-spacing: -.03em; margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero p {
+    color: var(--muted); font-size: 1.1rem; line-height: 1.7;
+    margin-bottom: 2.5rem; max-width: 480px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--ink); color: var(--cream);
+    padding: .85rem 2rem; border-radius: 5px;
+    text-decoration: none; font-weight: 600; font-size: .95rem;
+    transition: background .2s, transform .2s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    border: 2px solid var(--border); color: var(--ink);
+    padding: .85rem 2rem; border-radius: 5px;
+    text-decoration: none; font-weight: 600; font-size: .95rem;
+    transition: border-color .2s, transform .2s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* hero card */
+  .hero-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,.08);
+    position: relative;
+  }
+  .hero-card::before {
+    content: ''; position: absolute;
+    top: -1px; left: 2rem; right: 2rem; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 0 0 4px 4px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 1.5rem; color: var(--ink);
+  }
+  .style-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .75rem; margin-bottom: 1.5rem;
+  }
+  .style-chip {
+    background: var(--cream); border: 1px solid var(--border);
+    padding: .6rem 1rem; border-radius: 8px;
+    font-size: .85rem; font-weight: 600; text-align: center;
+    cursor: pointer; transition: all .2s;
+    color: var(--ink);
+  }
+  .style-chip:hover, .style-chip.active {
+    background: var(--gold); border-color: var(--gold);
+    color: var(--white);
+  }
+  .card-stats {
+    display: flex; gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat { text-align: center; flex: 1; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--gold);
+    display: block;
+  }
+  .stat-label { font-size: .75rem; color: var(--muted); font-weight: 500; }
+
+  /* ── CITATION BANNER ── */
+  .citation-banner {
+    background: var(--deep); color: var(--cream);
+    padding: 1.2rem 5%; overflow: hidden;
+  }
+  .ticker {
+    display: flex; gap: 4rem; white-space: nowrap;
+    animation: ticker 25s linear infinite;
+  }
+  .ticker-item {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; font-weight: 500; opacity: .8;
+  }
+  .ticker-item span { color: var(--gold-light); font-weight: 700; font-size: 1rem; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 5%; }
+  .section-label {
+    display: inline-block;
+    font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.15;
+    letter-spacing: -.02em; margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 1.05rem;
+    line-height: 1.7; max-width: 560px;
+  }
+  .section-header { margin-bottom: 3.5rem; }
+
+  /* ── SERVICES ── */
+  .services-bg { background: var(--white); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .service-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .service-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0);
+    transition: transform .25s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.1); border-color: var(--gold); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon {
+    width: 48px; height: 48px; background: rgba(201,153,58,.12);
+    border-radius: 10px; display: grid; place-items: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+  }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: .6rem;
+  }
+  .service-card p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  /* ── CITATION STYLES ── */
+  .citations-bg { background: var(--deep); color: var(--cream); }
+  .citations-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .citation-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px; padding: 1.8rem;
+    transition: background .25s, border-color .25s, transform .25s;
+  }
+  .citation-card:hover {
+    background: rgba(201,153,58,.12);
+    border-color: rgba(201,153,58,.4);
+    transform: translateY(-4px);
+  }
+  .cite-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: var(--gold);
+    margin-bottom: .3rem;
+  }
+  .cite-full { font-size: .8rem; opacity: .6; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .08em; }
+  .cite-desc { font-size: .9rem; line-height: 1.6; opacity: .8; }
+  .cite-tags { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .cite-tag {
+    background: rgba(201,153,58,.2); color: var(--gold-light);
+    padding: .25rem .7rem; border-radius: 50px; font-size: .75rem; font-weight: 600;
+  }
+
+  /* ── PROCESS ── */
+  .process-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .process-step { text-align: center; padding: 1.5rem; position: relative; }
+  .step-num {
+    width: 56px; height: 56px;
+    background: var(--ink); color: var(--cream);
+    border-radius: 50%; display: grid; place-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 900;
+    margin: 0 auto 1.2rem;
+    border: 3px solid var(--gold);
+  }
+  .process-step h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; margin-bottom: .5rem;
+  }
+  .process-step p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  /* ── PRICING ── */
+  .pricing-bg { background: var(--white); }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; max-width: 1000px; margin: 0 auto;
+  }
+  .pricing-card {
+    border: 2px solid var(--border);
+    border-radius: 16px; padding: 2.5rem;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+  .pricing-card.featured {
+    border-color: var(--gold);
+    background: var(--ink); color: var(--cream);
+    position: relative;
+  }
+  .featured-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--white);
+    padding: .3rem 1.2rem; border-radius: 50px;
+    font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  }
+  .plan-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: .5rem;
+  }
+  .plan-desc { font-size: .88rem; opacity: .65; margin-bottom: 1.5rem; }
+  .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900; color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .plan-price span { font-size: 1rem; opacity: .6; }
+  .plan-features { list-style: none; margin-bottom: 2rem; }
+  .plan-features li {
+    padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.08);
+    font-size: .9rem; display: flex; align-items: center; gap: .6rem;
+  }
+  .plan-features li::before { content: '✓'; color: var(--gold); font-weight: 700; }
+  .pricing-card:not(.featured) .plan-features li {
+    border-bottom-color: var(--border);
+  }
+  .plan-btn {
+    display: block; text-align: center;
+    padding: .85rem; border-radius: 8px;
+    text-decoration: none; font-weight: 700; font-size: .95rem;
+    transition: all .2s;
+  }
+  .pricing-card:not(.featured) .plan-btn {
+    background: var(--cream); color: var(--ink);
+    border: 2px solid var(--border);
+  }
+  .pricing-card:not(.featured) .plan-btn:hover {
+    background: var(--gold); border-color: var(--gold); color: var(--white);
+  }
+  .pricing-card.featured .plan-btn {
+    background: var(--gold); color: var(--white);
+  }
+  .pricing-card.featured .plan-btn:hover { background: var(--gold-light); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-bg { background: var(--cream); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .testimonial {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem;
+  }
+  .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; }
+  .testimonial p { color: var(--muted); font-size: .95rem; line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: .8rem; }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--deep));
+    display: grid; place-items: center;
+    color: var(--white); font-weight: 700; font-size: .95rem;
+  }
+  .reviewer-name { font-weight: 600; font-size: .9rem; }
+  .reviewer-role { font-size: .8rem; color: var(--muted); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--ink); color: var(--cream);
+    text-align: center; padding: 6rem 5%;
+  }
+  .cta-section .section-title { color: var(--cream); }
+  .cta-section .section-title em { color: var(--gold); font-style: italic; }
+  .cta-section p { color: rgba(250,247,242,.65); max-width: 500px; margin: 0 auto 2.5rem; font-size: 1.05rem; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.5fr;
+    gap: 4rem; max-width: 1000px; margin: 0 auto;
+    align-items: start;
+  }
+  .contact-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900; margin-bottom: 1rem;
+  }
+  .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; }
+  .contact-icon {
+    width: 40px; height: 40px; background: rgba(201,153,58,.12);
+    border-radius: 8px; display: grid; place-items: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-item strong { display: block; font-weight: 600; font-size: .9rem; }
+  .contact-item span { font-size: .85rem; color: var(--muted); }
+  .contact-form {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.5rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { margin-bottom: 1.2rem; }
+  .field label {
+    display: block; font-size: .85rem; font-weight: 600;
+    margin-bottom: .4rem; color: var(--ink);
+  }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: .75rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem;
+    background: var(--cream); color: var(--ink);
+    transition: border-color .2s;
+    outline: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+  .field textarea { resize: vertical; min-height: 120px; }
+  .submit-btn {
+    width: 100%; padding: 1rem;
+    background: var(--ink); color: var(--cream);
+    border: none; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: background .2s, transform .2s;
+  }
+  .submit-btn:hover { background: var(--gold); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep); color: var(--cream);
+    padding: 3rem 5% 1.5rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  footer .logo { color: var(--cream); }
+  .footer-desc { color: rgba(255,255,255,.55); font-size: .9rem; line-height: 1.7; margin-top: .8rem; }
+  .footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 1rem; color: var(--gold-light);
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: .6rem; }
+  .footer-col a { color: rgba(255,255,255,.55); text-decoration: none; font-size: .88rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { font-size: .82rem; color: rgba(255,255,255,.4); }
+
+  /* ── RESPONSIVE ── */
+
+  /* Tablet landscape & small desktop */
+  @media (max-width: 1024px) {
+    .hero-grid { gap: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .pricing-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  }
+
+  /* Tablet portrait */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 4%; }
+    .nav-links { display: none; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .hero { padding: 7rem 4% 4rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .citations-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 4.5rem 4%; }
+    .cta-section { padding: 4.5rem 4%; }
+  }
+
+  /* Large phones / small tablets */
+  @media (max-width: 640px) {
+    nav { padding: .9rem 4%; }
+    .logo { font-size: 1.25rem; }
+    .hero { padding: 6rem 4% 3rem; min-height: auto; }
+    .hero h1 { font-size: 2.2rem; letter-spacing: -.02em; }
+    .hero p { font-size: 1rem; }
+    .hero-btns { flex-direction: column; gap: .75rem; }
+    .hero-btns a { text-align: center; justify-content: center; }
+    .btn-primary, .btn-outline { padding: .8rem 1.5rem; font-size: .9rem; }
+    .hero-badge { font-size: .72rem; }
+    section { padding: 3.5rem 4%; }
+    .cta-section { padding: 3.5rem 4%; }
+    .section-title { font-size: 1.8rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .citations-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .portfolio-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .pricing-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .testimonials-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: .5rem; }
+    .card-stats { gap: .5rem; }
+    .stat-num { font-size: 1.3rem; }
+    .pricing-card.featured { margin-top: .5rem; }
+    .cta-btns { flex-direction: column; align-items: center; gap: .75rem; }
+    .cta-btns a { width: 100%; max-width: 320px; text-align: center; justify-content: center; }
+    .contact-form { padding: 1.5rem; }
+    .p-upload-row { flex-direction: column; align-items: flex-start; gap: .5rem; }
+    .p-upload-btn { width: 100%; text-align: center; padding: .5rem; }
+  }
+
+  /* Small phones (≤ 400px) */
+  @media (max-width: 400px) {
+    nav { padding: .8rem 3%; }
+    .logo { font-size: 1.1rem; }
+    .hero { padding: 5.5rem 3% 2.5rem; }
+    .hero h1 { font-size: 1.85rem; }
+    .hero p { font-size: .92rem; }
+    section { padding: 3rem 3%; }
+    .cta-section { padding: 3rem 3%; }
+    .section-title { font-size: 1.55rem; }
+    .section-sub { font-size: .92rem; }
+    .service-card { padding: 1.4rem; }
+    .service-icon { width: 40px; height: 40px; font-size: 1.2rem; margin-bottom: .9rem; }
+    .service-card h3 { font-size: 1.05rem; }
+    .cite-name { font-size: 1.6rem; }
+    .process-grid { grid-template-columns: 1fr; }
+    .step-num { width: 46px; height: 46px; font-size: 1.1rem; }
+    .pricing-card { padding: 1.8rem 1.4rem; }
+    .plan-price { font-size: 2rem; }
+    .testimonial { padding: 1.4rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .contact-form { padding: 1.2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .field input, .field select, .field textarea { font-size: .85rem; padding: .65rem .85rem; }
+    .submit-btn { font-size: .9rem; }
+    .portfolio-body { padding: 1rem; }
+    .portfolio-body h3 { font-size: .95rem; }
+    .p-upload-btn { font-size: .75rem; }
+    .ticker { gap: 2rem; }
+    .ticker-item { font-size: .78rem; }
+    .citation-banner { padding: 1rem 3%; }
+    footer { padding: 2.5rem 3% 1.2rem; }
+  }
+
+  /* Very small phones (≤ 320px — e.g. iPhone SE 1st gen) */
+  @media (max-width: 320px) {
+    .hero h1 { font-size: 1.6rem; }
+    .section-title { font-size: 1.35rem; }
+    .btn-primary, .btn-outline { padding: .7rem 1.1rem; font-size: .82rem; }
+    .plan-price { font-size: 1.75rem; }
+    .cite-name { font-size: 1.4rem; }
+  }
+
+  /* Mobile nav hamburger show */
+  @media (max-width: 900px) {
+    .mobile-menu-btn { display: flex; }
+  }
+
+  .mobile-menu-btn {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: .3rem;
+  }
+  .mobile-menu-btn span {
+    display: block; width: 24px; height: 2px;
+    background: var(--ink); border-radius: 2px;
+    transition: all .3s;
+  }
+  .mobile-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .mobile-menu-btn.open span:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-nav {
+    display: none; position: fixed;
+    top: 60px; left: 0; right: 0; z-index: 99;
+    background: rgba(250,247,242,.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 5%;
+    flex-direction: column; gap: .2rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    text-decoration: none; color: var(--ink);
+    font-size: 1rem; font-weight: 500;
+    padding: .75rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: color .2s;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-nav .m-cta {
+    background: var(--ink); color: var(--cream) !important;
+    padding: .75rem 1.5rem; border-radius: 6px;
+    text-align: center; margin-top: .5rem;
+    border-bottom: none !important;
+  }
+  .mobile-nav .m-cta:hover { background: var(--gold) !important; }
+
+  .upload-box {
+    border: 2px dashed var(--border); border-radius: 10px;
+    padding: 1.5rem; text-align: center; cursor: pointer;
+    background: var(--cream); transition: border-color .2s, background .2s;
+  }
+  .upload-box:hover { border-color: var(--gold); background: rgba(201,153,58,.04); }
+  .upload-icon { font-size: 1.6rem; margin-bottom: .4rem; }
+  .upload-text { font-size: .9rem; font-weight: 600; color: var(--ink); margin-bottom: .2rem; }
+  .upload-sub { font-size: .78rem; color: var(--muted); }
+  .file-item {
+    display: flex; align-items: center; gap: .5rem;
+    background: rgba(201,153,58,.08); border: 1px solid rgba(201,153,58,.2);
+    border-radius: 6px; padding: .4rem .8rem; margin-bottom: .4rem;
+    font-size: .82rem; font-weight: 500;
+  }
+  .file-item .remove-file {
+    margin-left: auto; cursor: pointer; color: var(--muted);
+    font-size: 1rem; line-height: 1; transition: color .2s;
+  }
+  .file-item .remove-file:hover { color: #c0392b; }
+
+  /* ── PORTFOLIO ── */
+  .portfolio-bg { background: var(--white); }
+  .portfolio-filters {
+    display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    padding: .45rem 1.1rem; border-radius: 50px;
+    border: 1.5px solid var(--border); background: transparent;
+    font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 600;
+    cursor: pointer; transition: all .2s; color: var(--muted);
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--gold); border-color: var(--gold); color: var(--white);
+  }
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .portfolio-item {
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.1); }
+  .portfolio-thumb {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .portfolio-thumb .thumb-overlay {
+    position: absolute; inset: 0; opacity: 0;
+    background: rgba(13,13,13,.7); display: flex; align-items: center; justify-content: center;
+    transition: opacity .25s;
+  }
+  .portfolio-item:hover .thumb-overlay { opacity: 1; }
+  .thumb-overlay span {
+    color: var(--white); font-size: .85rem; font-weight: 700;
+    border: 2px solid var(--gold); padding: .4rem 1rem; border-radius: 50px;
+    cursor: pointer; transition: background .2s;
+  }
+  .thumb-overlay span:hover { background: var(--gold); }
+  .portfolio-body { padding: 1.4rem; }
+  .portfolio-body .p-type {
+    font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: .4rem;
+  }
+  .portfolio-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.3;
+  }
+  .portfolio-body p { font-size: .85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+  .p-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .p-tag {
+    background: rgba(201,153,58,.1); color: var(--gold);
+    padding: .2rem .65rem; border-radius: 50px; font-size: .75rem; font-weight: 600;
+  }
+  .p-upload-row {
+    display: flex; align-items: center; gap: .6rem;
+    margin-top: 1rem; padding-top: .9rem;
+    border-top: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .p-upload-status {
+    font-size: .78rem; color: var(--muted); flex: 1; min-width: 100px;
+  }
+  .p-upload-status.ready { color: #2d7a4f; font-weight: 600; }
+  .p-upload-btn {
+    background: var(--ink); color: var(--cream);
+    border: none; border-radius: 6px;
+    padding: .4rem .9rem; font-family: 'DM Sans', sans-serif;
+    font-size: .78rem; font-weight: 700; cursor: pointer;
+    transition: background .2s; white-space: nowrap;
+  }
+  .p-upload-btn:hover { background: var(--gold); }
+  .thumb-emoji { font-size: 3rem; position: relative; z-index: 1; }
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── ADMIN FAB ── */
+  .admin-fab {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 998;
+    background: var(--deep); color: var(--gold-light);
+    border: 2px solid var(--gold); border-radius: 50px;
+    padding: .6rem 1.2rem; font-size: .82rem; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; gap: .5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    transition: background .2s, transform .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .admin-fab:hover { background: var(--gold); color: var(--white); transform: translateY(-2px); }
+  #adminPanel {
+    display: none; position: fixed; inset: 0; z-index: 1100;
+    background: rgba(0,0,0,.75); align-items: flex-start; justify-content: flex-end;
+  }
+  .admin-sidebar {
+    background: var(--deep); color: var(--cream);
+    width: 420px; max-width: 96vw; height: 100vh;
+    overflow-y: auto; display: flex; flex-direction: column;
+    box-shadow: -8px 0 40px rgba(0,0,0,.4);
+  }
+  .admin-header {
+    padding: 1.3rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,.1);
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,.04); flex-shrink: 0;
+  }
+  .admin-header h2 { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:var(--gold-light); }
+  .admin-close { background:none; border:none; color:rgba(255,255,255,.5); font-size:1.3rem; cursor:pointer; transition:color .2s; }
+  .admin-close:hover { color:var(--white); }
+  .admin-tabs { display:flex; border-bottom:1px solid rgba(255,255,255,.1); flex-shrink:0; }
+  .admin-tab {
+    flex:1; padding:.8rem; text-align:center;
+    font-size:.8rem; font-weight:700; cursor:pointer;
+    color:rgba(255,255,255,.45); border-bottom:2px solid transparent;
+    transition:all .2s; font-family:'DM Sans',sans-serif;
+    background:none; border-top:none; border-left:none; border-right:none;
+  }
+  .admin-tab.active { color:var(--gold-light); border-bottom-color:var(--gold); }
+  .admin-tab:hover { color:var(--gold-light); }
+  .admin-body { flex:1; overflow-y:auto; padding:1.4rem 1.5rem; }
+  .admin-stat-row { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-bottom:1.4rem; }
+  .admin-stat { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:1rem; text-align:center; }
+  .admin-stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; color:var(--gold); display:block; }
+  .admin-stat-label { font-size:.74rem; color:rgba(255,255,255,.45); margin-top:.2rem; }
+  .admin-section-title { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:.8rem; }
+  .visitor-item { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:8px; padding:.85rem 1rem; margin-bottom:.6rem; display:flex; align-items:flex-start; gap:.8rem; }
+  .visitor-avatar { width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--deep)); display:grid; place-items:center; font-size:.78rem; font-weight:700; flex-shrink:0; color:var(--white); }
+  .visitor-info { flex:1; min-width:0; }
+  .visitor-name { font-size:.86rem; font-weight:600; color:var(--cream); }
+  .visitor-meta { font-size:.74rem; color:rgba(255,255,255,.4); margin-top:.15rem; }
+  .visitor-time { font-size:.7rem; color:rgba(255,255,255,.28); white-space:nowrap; }
+  .msg-item { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:8px; padding:1rem; margin-bottom:.8rem; }
+  .msg-item.unread { border-color:rgba(201,153,58,.35); background:rgba(201,153,58,.06); }
+  .msg-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.4rem; }
+  .msg-from { font-size:.86rem; font-weight:700; color:var(--cream); }
+  .msg-time { font-size:.7rem; color:rgba(255,255,255,.3); }
+  .msg-subject { font-size:.77rem; color:var(--gold-light); margin-bottom:.35rem; font-weight:600; }
+  .msg-body { font-size:.81rem; color:rgba(255,255,255,.55); line-height:1.5; }
+  .msg-unread-dot { display:inline-block; width:7px; height:7px; background:var(--gold); border-radius:50%; margin-right:.4rem; vertical-align:middle; }
+  .admin-empty { text-align:center; padding:2.5rem 1rem; color:rgba(255,255,255,.3); }
+  .admin-empty div:first-child { font-size:2.2rem; margin-bottom:.5rem; }
+  .admin-empty div:last-child { font-size:.83rem; }
+  /* PIN screen */
+  .admin-pin-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:3rem 2rem; gap:1rem; text-align:center; }
+  .admin-pin-wrap h3 { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:800; color:var(--gold-light); }
+  .admin-pin-wrap p { font-size:.83rem; color:rgba(255,255,255,.45); max-width:260px; }
+  .pin-input { width:100%; max-width:240px; padding:.8rem 1rem; text-align:center; border:1.5px solid rgba(255,255,255,.15); border-radius:8px; background:rgba(255,255,255,.07); color:var(--cream); font-family:'DM Sans',sans-serif; font-size:1.1rem; letter-spacing:.25em; outline:none; transition:border-color .2s; }
+  .pin-input:focus { border-color:var(--gold); }
+  .pin-btn { width:100%; max-width:240px; padding:.8rem; background:var(--gold); color:var(--white); border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.95rem; font-weight:700; cursor:pointer; transition:background .2s; }
+  .pin-btn:hover { background:var(--gold-light); }
+  .pin-error { color:#e74c3c; font-size:.8rem; }
+
+  /* ── WHATSAPP BUBBLE ── */
+  .wa-bubble { position:fixed; bottom:2rem; left:2rem; z-index:997; background:#25d366; color:white; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; text-decoration:none; box-shadow:0 4px 20px rgba(37,211,102,.4); transition:transform .2s,box-shadow .2s; }
+  .wa-bubble:hover { transform:scale(1.1); box-shadow:0 6px 28px rgba(37,211,102,.5); }
+
+  /* ── SEND A MESSAGE SECTION ── */
+  .msg-section { background:var(--deep); color:var(--cream); padding:5rem 5%; }
+  .msg-inner { max-width:660px; margin:0 auto; }
+  .msg-inner .section-label { color:var(--gold-light); }
+  .msg-inner .section-title { color:var(--cream); }
+  .msg-inner .section-sub { color:rgba(250,247,242,.6); margin-bottom:2.5rem; }
+  .msg-inner .field label { color:rgba(255,255,255,.8); }
+  .msg-inner .field input,
+  .msg-inner .field textarea {
+    background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.15); color:var(--cream);
+  }
+  .msg-inner .field input::placeholder,
+  .msg-inner .field textarea::placeholder { color:rgba(255,255,255,.3); }
+  .msg-inner .field input:focus,
+  .msg-inner .field textarea:focus { border-color:var(--gold); }
+  .msg-send-btn { width:100%; padding:1rem; background:var(--gold); color:var(--white); border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:background .2s,transform .2s; }
+  .msg-send-btn:hover { background:var(--gold-light); transform:translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Scholar<span>Craft</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#citations">Citation Styles</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact" class="nav-cta">Order Now</a></li>
+  </ul>
+  <button class="mobile-menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#citations" onclick="closeMenu()">Citation Styles</a>
+  <a href="#process" onclick="closeMenu()">How It Works</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#contact" class="m-cta" onclick="closeMenu()">📝 Order Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">✦ Professional Academic Writing</div>
+      <h1>Expert Writing<br>for <em>Scholars</em><br>& Students</h1>
+      <p>From proposals to dissertations — meticulously crafted in APA, MLA, Chicago, Harvard, IEEE, Vancouver and more. Delivered on time, every time.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">📝 Place Your Order</a>
+        <a href="#services" class="btn-outline">Explore Services →</a>
+      </div>
+    </div>
+    <div class="hero-card fade-in">
+      <div class="card-title">Choose Your Citation Style</div>
+      <div class="style-grid">
+        <div class="style-chip active">APA 7th</div>
+        <div class="style-chip">MLA 9th</div>
+        <div class="style-chip">Chicago 17</div>
+        <div class="style-chip">Harvard</div>
+        <div class="style-chip">IEEE</div>
+        <div class="style-chip">Vancouver</div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Papers Done</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Original Work</span></div>
+        <div class="stat"><span class="stat-num">24h</span><span class="stat-label">Fast Turnaround</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="citation-banner">
+  <div class="ticker">
+    <div class="ticker-item">✦ <span>APA</span> 7th Edition</div>
+    <div class="ticker-item">✦ <span>MLA</span> 9th Edition</div>
+    <div class="ticker-item">✦ <span>Chicago</span> Style</div>
+    <div class="ticker-item">✦ <span>Harvard</span> Referencing</div>
+    <div class="ticker-item">✦ <span>IEEE</span> Format</div>
+    <div class="ticker-item">✦ <span>Vancouver</span> Style</div>
+    <div class="ticker-item">✦ <span>Turnitin</span> Safe</div>
+    <div class="ticker-item">✦ <span>APA</span> 7th Edition</div>
+    <div class="ticker-item">✦ <span>MLA</span> 9th Edition</div>
+    <div class="ticker-item">✦ <span>Chicago</span> Style</div>
+    <div class="ticker-item">✦ <span>Harvard</span> Referencing</div>
+    <div class="ticker-item">✦ <span>IEEE</span> Format</div>
+    <div class="ticker-item">✦ <span>Vancouver</span> Style</div>
+    <div class="ticker-item">✦ <span>Turnitin</span> Safe</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="services-bg">
+  <div class="section-header" style="max-width:1200px;margin:0 auto 3.5rem;">
+    <div class="section-label">What I Offer</div>
+    <h2 class="section-title">Comprehensive Academic<br>Writing Services</h2>
+    <p class="section-sub">Every document is researched thoroughly, written from scratch, and properly cited to your specified style.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-icon">📋</div>
+      <h3>Research Proposals</h3>
+      <p>Compelling research proposals with clear objectives, methodology, literature reviews, and proper academic structure.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">✍️</div>
+      <h3>Essay Writing</h3>
+      <p>Argumentative, analytical, descriptive, and expository essays crafted with strong thesis statements and coherent arguments.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">📊</div>
+      <h3>Report Writing</h3>
+      <p>Lab reports, business reports, field reports, and technical reports with accurate data analysis and clear conclusions.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">📚</div>
+      <h3>Literature Reviews</h3>
+      <p>Comprehensive synthesis of scholarly sources with critical analysis and thematic organization of existing research.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">🎓</div>
+      <h3>Dissertations & Theses</h3>
+      <p>Full dissertations and thesis chapters including introduction, methodology, findings, discussion, and conclusion.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">📝</div>
+      <h3>Term Papers</h3>
+      <p>Well-researched term papers on any subject with proper in-text citations and bibliography in your required style.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">🔍</div>
+      <h3>Case Studies</h3>
+      <p>In-depth case analysis applying theoretical frameworks to real-world scenarios across business, law, medicine, and more.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">✏️</div>
+      <h3>Proofreading & Editing</h3>
+      <p>Grammar, syntax, flow, and citation correction for documents you've already written — polished to publication standard.</p>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">📌</div>
+      <h3>Annotated Bibliographies</h3>
+      <p>Detailed annotations for each source summarizing content, evaluating credibility, and explaining relevance to your topic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CITATION STYLES -->
+<section id="citations" class="citations-bg">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-label" style="color:var(--gold-light);">Citation Expertise</div>
+      <h2 class="section-title" style="color:var(--cream);">All Major Referencing<br>Styles Covered</h2>
+      <p class="section-sub" style="color:rgba(250,247,242,.65);">I format every source meticulously — from in-text citations to full reference lists — so you never lose marks on formatting.</p>
+    </div>
+    <div class="citations-grid">
+      <div class="citation-card fade-in">
+        <div class="cite-name">APA</div>
+        <div class="cite-full">American Psychological Association — 7th Edition</div>
+        <div class="cite-desc">Standard in psychology, education, and social sciences. Author-date format with DOI requirements for digital sources.</div>
+        <div class="cite-tags"><span class="cite-tag">Psychology</span><span class="cite-tag">Education</span><span class="cite-tag">Social Sciences</span></div>
+      </div>
+      <div class="citation-card fade-in">
+        <div class="cite-name">MLA</div>
+        <div class="cite-full">Modern Language Association — 9th Edition</div>
+        <div class="cite-desc">Preferred in humanities. Works Cited page with author-page in-text citations. Flexible for varied source types.</div>
+        <div class="cite-tags"><span class="cite-tag">Literature</span><span class="cite-tag">Arts</span><span class="cite-tag">Humanities</span></div>
+      </div>
+      <div class="citation-card fade-in">
+        <div class="cite-name">Chicago</div>
+        <div class="cite-full">Chicago Manual of Style — 17th Edition</div>
+        <div class="cite-desc">Two systems: Notes-Bibliography (humanities) and Author-Date (sciences). Commonly used in history and journalism.</div>
+        <div class="cite-tags"><span class="cite-tag">History</span><span class="cite-tag">Journalism</span><span class="cite-tag">Publishing</span></div>
+      </div>
+      <div class="citation-card fade-in">
+        <div class="cite-name">Harvard</div>
+        <div class="cite-full">Harvard Referencing System</div>
+        <div class="cite-desc">Author-date style widely used in UK universities across many disciplines. Clean, consistent, and widely recognized.</div>
+        <div class="cite-tags"><span class="cite-tag">UK Academia</span><span class="cite-tag">Business</span><span class="cite-tag">Sciences</span></div>
+      </div>
+      <div class="citation-card fade-in">
+        <div class="cite-name">IEEE</div>
+        <div class="cite-full">Institute of Electrical and Electronics Engineers</div>
+        <div class="cite-desc">Numbered citation system used in engineering, computer science, and technology fields. Brackets with reference list.</div>
+        <div class="cite-tags"><span class="cite-tag">Engineering</span><span class="cite-tag">Computing</span><span class="cite-tag">Technology</span></div>
+      </div>
+      <div class="citation-card fade-in">
+        <div class="cite-name">Vancouver</div>
+        <div class="cite-full">Vancouver Referencing System (ICMJE)</div>
+        <div class="cite-desc">Numeric system favored in biomedical and health sciences. Superscript numbers in text with numbered reference list.</div>
+        <div class="cite-tags"><span class="cite-tag">Medicine</span><span class="cite-tag">Nursing</span><span class="cite-tag">Biomedical</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <div class="section-label">Simple Steps</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub" style="margin:0 auto 3.5rem;">From your first message to the final polished document in four easy steps.</p>
+    <div class="process-grid">
+      <div class="process-step fade-in">
+        <div class="step-num">1</div>
+        <h3>Submit Details</h3>
+        <p>Fill in the order form with your topic, word count, citation style, deadline, and any instructions.</p>
+      </div>
+      <div class="process-step fade-in">
+        <div class="step-num">2</div>
+        <h3>Confirm & Pay</h3>
+        <p>Receive a quote, confirm the order, and make a secure payment. Rush orders are always welcome.</p>
+      </div>
+      <div class="process-step fade-in">
+        <div class="step-num">3</div>
+        <h3>Research & Write</h3>
+        <p>Your document is researched, written from scratch, and checked for plagiarism before delivery.</p>
+      </div>
+      <div class="process-step fade-in">
+        <div class="step-num">4</div>
+        <h3>Review & Revise</h3>
+        <p>Receive your completed work. Free revisions included until you are fully satisfied with the result.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing-bg">
+  <div style="max-width:1000px;margin:0 auto;text-align:center;">
+    <div class="section-label">Transparent Rates</div>
+    <h2 class="section-title">Simple, Fair Pricing</h2>
+    <p class="section-sub" style="margin:0 auto 3.5rem;">All packages include plagiarism-free work, proper citations, and free revisions.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card fade-in">
+        <div class="plan-name">Standard</div>
+        <div class="plan-desc">Ideal for essays & short assignments</div>
+        <div class="plan-price">KES 500 <span>/ page</span></div>
+        <ul class="plan-features">
+          <li>Up to 3 days turnaround</li>
+          <li>Any citation style</li>
+          <li>Plagiarism report included</li>
+          <li>1 free revision</li>
+          <li>Word / PDF delivery</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get Started</a>
+      </div>
+      <div class="pricing-card featured fade-in">
+        <div class="featured-badge">Most Popular</div>
+        <div class="plan-name">Professional</div>
+        <div class="plan-desc">Proposals, reports & dissertations</div>
+        <div class="plan-price">KES 800 <span>/ page</span></div>
+        <ul class="plan-features">
+          <li>24-hour turnaround available</li>
+          <li>All citation styles</li>
+          <li>Plagiarism report included</li>
+          <li>3 free revisions</li>
+          <li>Full reference list</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Order Now</a>
+      </div>
+      <div class="pricing-card fade-in">
+        <div class="plan-name">Express</div>
+        <div class="plan-desc">Urgent deadline in under 12 hours</div>
+        <div class="plan-price">KES 1,200 <span>/ page</span></div>
+        <ul class="plan-features">
+          <li>6–12 hour delivery</li>
+          <li>Any citation style</li>
+          <li>Plagiarism report included</li>
+          <li>3 free revisions</li>
+          <li>Direct writer contact</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Rush Order</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-bg">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-label">Client Feedback</div>
+      <h2 class="section-title">What Students Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial fade-in">
+        <div class="stars">★★★★★</div>
+        <p>"My research proposal was impeccably formatted in APA 7th edition. Got an A and my supervisor praised the literature review. Will definitely use again!"</p>
+        <div class="reviewer">
+          <div class="avatar">AM</div>
+          <div>
+            <div class="reviewer-name">Amina Mwangi</div>
+            <div class="reviewer-role">MSc Student, Nairobi</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial fade-in">
+        <div class="stars">★★★★★</div>
+        <p>"Placed an urgent 8-page report at 10pm, had it by 7am — perfectly cited in Vancouver style. Saved my semester. Highly professional and reliable."</p>
+        <div class="reviewer">
+          <div class="avatar">JK</div>
+          <div>
+            <div class="reviewer-name">James Kariuki</div>
+            <div class="reviewer-role">Medical Student, KU</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial fade-in">
+        <div class="stars">★★★★★</div>
+        <p>"Needed a Chicago-style essay for my history class and the writer nailed both the content and the footnotes. Zero plagiarism detected. Excellent service!"</p>
+        <div class="reviewer">
+          <div class="avatar">FO</div>
+          <div>
+            <div class="reviewer-name">Faith Ochieng</div>
+            <div class="reviewer-role">BA History, USIU</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="portfolio-bg">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-label">My Work</div>
+      <h2 class="section-title">Sample Portfolio</h2>
+      <p class="section-sub">A selection of completed academic work across disciplines and citation styles. All samples are anonymized.</p>
+    </div>
+    <div class="portfolio-filters">
+      <button class="filter-btn active" onclick="filterPortfolio('all',this)">All Work</button>
+      <button class="filter-btn" onclick="filterPortfolio('proposal',this)">Proposals</button>
+      <button class="filter-btn" onclick="filterPortfolio('essay',this)">Essays</button>
+      <button class="filter-btn" onclick="filterPortfolio('report',this)">Reports</button>
+      <button class="filter-btn" onclick="filterPortfolio('dissertation',this)">Dissertations</button>
+      <button class="filter-btn" onclick="filterPortfolio('review',this)">Lit Reviews</button>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid">
+
+      <div class="portfolio-item fade-in" data-cat="proposal" data-id="0">
+        <div class="portfolio-thumb" style="background:linear-gradient(135deg,#f0e6d3,#e8d5b5);">
+          <span class="thumb-emoji">📋</span>
+          <div class="thumb-overlay"><span onclick="viewSample(0)">View Sample</span></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="p-type" id="ptype-0">Research Proposal</div>
+          <h3 id="ptitle-0">Effects of Social Media on Academic Performance Among University Students</h3>
+          <p id="pdesc-0">A comprehensive 15-page research proposal with full literature review, conceptual framework, and methodology.</p>
+          <div class="p-tags" id="ptags-0"><span class="p-tag">APA 7th</span><span class="p-tag">Postgraduate</span><span class="p-tag">Education</span></div>
+          <div class="p-upload-row">
+            <span class="p-upload-status" id="status-0">No file uploaded</span>
+            <button type="button" class="p-upload-btn" onclick="openEditModal(0)">✏️ Edit & Upload</button>
+            <input type="file" id="p-file-0" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none">
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="essay" data-id="1">
+        <div class="portfolio-thumb" style="background:linear-gradient(135deg,#dde8f0,#c5d9e8);">
+          <span class="thumb-emoji">✍️</span>
+          <div class="thumb-overlay"><span onclick="viewSample(1)">View Sample</span></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="p-type" id="ptype-1">Argumentative Essay</div>
+          <h3 id="ptitle-1">Climate Change Policy: Is Carbon Taxation an Effective Solution?</h3>
+          <p id="pdesc-1">8-page argumentative essay with a strong thesis, counter-arguments, and rebuttals citing 20+ peer-reviewed sources.</p>
+          <div class="p-tags" id="ptags-1"><span class="p-tag">MLA 9th</span><span class="p-tag">Undergraduate</span><span class="p-tag">Environmental Studies</span></div>
+          <div class="p-upload-row">
+            <span class="p-upload-status" id="status-1">No file uploaded</span>
+            <button type="button" class="p-upload-btn" onclick="openEditModal(1)">✏️ Edit & Upload</button>
+            <input type="file" id="p-file-1" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none">
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="report" data-id="2">
+        <div class="portfolio-thumb" style="background:linear-gradient(135deg,#e8f0dd,#d5e8c5);">
+          <span class="thumb-emoji">📊</span>
+          <div class="thumb-overlay"><span onclick="viewSample(2)">View Sample</span></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="p-type" id="ptype-2">Business Report</div>
+          <h3 id="ptitle-2">Market Entry Strategy for SMEs in East Africa's Fintech Sector</h3>
+          <p id="pdesc-2">12-page business report with SWOT analysis, competitor benchmarking, and strategic recommendations.</p>
+          <div class="p-tags" id="ptags-2"><span class="p-tag">Harvard</span><span class="p-tag">MBA Level</span><span class="p-tag">Business</span></div>
+          <div class="p-upload-row">
+            <span class="p-upload-status" id="status-2">No file uploaded</span>
+            <button type="button" class="p-upload-btn" onclick="openEditModal(2)">✏️ Edit & Upload</button>
+            <input type="file" id="p-file-2" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none">
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="dissertation" data-id="3">
+        <div class="portfolio-thumb" style="background:linear-gradient(135deg,#ede8f0,#d9d5e8);">
+          <span class="thumb-emoji">🎓</span>
+          <div class="thumb-overlay"><span onclick="viewSample(3)">View Sample</span></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="p-type" id="ptype-3">Dissertation Chapter</div>
+          <h3 id="ptitle-3">Nurse-Patient Communication and Its Impact on Patient Outcomes in ICU Settings</h3>
+          <p id="pdesc-3">Full Chapter 3 (Methodology) — 18 pages including research design, sampling, data collection and ethical considerations.</p>
+          <div class="p-tags" id="ptags-3"><span class="p-tag">Vancouver</span><span class="p-tag">Masters</span><span class="p-tag">Nursing</span></div>
+          <div class="p-upload-row">
+            <span class="p-upload-status" id="status-3">No file uploaded</span>
+            <button type="button" class="p-upload-btn" onclick="openEditModal(3)">✏️ Edit & Upload</button>
+            <input type="file" id="p-file-3" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none">
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="review" data-id="4">
+        <div class="portfolio-thumb" style="background:linear-gradient(135deg,#f0ede8,#e8ddd5);">
+          <span class="thumb-emoji">📚</span>
+          <div class="thumb-overlay"><span onclick="viewSample(4)">View Sample</span></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="p-type" id="ptype-4">Literature Review</div>
+          <h3 id="ptitle-4">Artificial Intelligence in Medical Diagnosis: A Thematic Review of Current Evidence</h3>
+          <p id="pdesc-4">Thematic 10-page literature review synthesizing 30+ studies from PubMed, Scopus, and IEEE Xplore.</p>
+          <div class="p-tags" id="ptags-4"><span class="p-tag">IEEE</span><span class="p-tag">Postgraduate</span><span class="p-tag">Medicine / AI</span></div>
+          <div class="p-upload-row">
+            <span class="p-upload-status" id="status-4">No file uploaded</span>
+            <button type="button" class="p-upload-btn" onclick="openEditModal(4)">✏️ Edit & Upload</button>
+            <input type="file" id="p-file-4" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none">
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="report" data-id="5">
+        <div class="portfolio-thumb" style="background:linear-gradient(135deg,#f0e8e8,#e8d5d5);">
+          <span class="thumb-emoji">🔬</span>
+          <div class="thumb-overlay"><span onclick="viewSample(5)">View Sample</span></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="p-type" id="ptype-5">Lab Report</div>
+          <h3 id="ptitle-5">Titration Analysis of Acetic Acid in Commercial Vinegar — Quantitative Chemistry</h3>
+          <p id="pdesc-5">Structured lab report with hypothesis, procedure, results tables, graphs, discussion, and conclusion.</p>
+          <div class="p-tags" id="ptags-5"><span class="p-tag">Chicago</span><span class="p-tag">Undergraduate</span><span class="p-tag">Chemistry</span></div>
+          <div class="p-upload-row">
+            <span class="p-upload-status" id="status-5">No file uploaded</span>
+            <button type="button" class="p-upload-btn" onclick="openEditModal(5)">✏️ Edit & Upload</button>
+            <input type="file" id="p-file-5" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#contact" class="btn-primary">📝 Order a Similar Paper</a>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE VIEWER MODAL -->
+<div id="sampleModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;">
+  <div style="background:var(--white);border-radius:16px;max-width:860px;width:94%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.8rem;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;" id="modalTitle">Sample Preview</div>
+      <button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);line-height:1;">✕</button>
+    </div>
+    <div id="modalBody" style="flex:1;overflow:auto;padding:1.5rem;display:flex;align-items:center;justify-content:center;min-height:400px;"></div>
+  </div>
+</div>
+
+<!-- EDIT & UPLOAD MODAL -->
+<div id="editModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.85);align-items:center;justify-content:center;">
+  <div style="background:var(--white);border-radius:16px;max-width:560px;width:94%;max-height:92vh;overflow-y:auto;position:relative;">
+    <!-- gold top bar -->
+    <div style="height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:16px 16px 0 0;"></div>
+    <div style="padding:1.6rem 1.8rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;">✏️ Edit Portfolio Card</div>
+        <button onclick="closeEditModal()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);">✕</button>
+      </div>
+
+      <input type="hidden" id="edit-id">
+
+      <div class="field">
+        <label>Document Title</label>
+        <input type="text" id="edit-title" placeholder="e.g. Effects of Social Media on Academic Performance">
+      </div>
+      <div class="field">
+        <label>Document Type</label>
+        <select id="edit-type">
+          <option>Research Proposal</option>
+          <option>Argumentative Essay</option>
+          <option>Analytical Essay</option>
+          <option>Business Report</option>
+          <option>Lab Report</option>
+          <option>Dissertation Chapter</option>
+          <option>Literature Review</option>
+          <option>Term Paper</option>
+          <option>Case Study</option>
+          <option>Annotated Bibliography</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="edit-desc" style="min-height:80px;" placeholder="Brief description of this work — pages, scope, key highlights…"></textarea>
+      </div>
+      <div class="field">
+        <label>Tags <span style="font-weight:400;color:var(--muted);font-size:.8rem;">(comma-separated, e.g. APA 7th, Postgraduate, Education)</span></label>
+        <input type="text" id="edit-tags" placeholder="APA 7th, Postgraduate, Education">
+      </div>
+      <div class="field">
+        <label>Upload Sample File <span style="font-weight:400;color:var(--muted);font-size:.8rem;">(PDF, DOCX, JPG, PNG)</span></label>
+        <div id="edit-upload-box" style="border:2px dashed var(--border);border-radius:10px;padding:1.2rem;text-align:center;cursor:pointer;background:var(--cream);transition:border-color .2s;" onclick="triggerEditFile()">
+          <div style="font-size:1.4rem;margin-bottom:.3rem;">📎</div>
+          <div id="edit-file-name" style="font-size:.88rem;font-weight:600;color:var(--ink);">Click to choose file or drag & drop</div>
+          <div style="font-size:.76rem;color:var(--muted);margin-top:.2rem;">PDF, DOCX, DOC, JPG, PNG — max 20MB</div>
+        </div>
+        <input type="file" id="edit-file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none" onchange="previewEditFile(this)">
+      </div>
+
+      <div style="display:flex;gap:.8rem;margin-top:.5rem;">
+        <button type="button" onclick="closeEditModal()" style="flex:1;padding:.8rem;border:2px solid var(--border);background:transparent;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;color:var(--muted);">Cancel</button>
+        <button type="button" onclick="saveCardEdit()" style="flex:2;padding:.8rem;background:var(--ink);color:var(--cream);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--ink)'">✅ Save & Apply to Card</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label" style="color:var(--gold);">Limited Slots Available</div>
+  <h2 class="section-title">Ready to Get Your<br><em>Paper Done Right?</em></h2>
+  <p>Send me your requirements now and receive a free quote within minutes. Deadlines are sacred — yours will be met.</p>
+  <div class="cta-btns">
+    <a href="#contact" class="btn-primary">📩 Order Your Paper</a>
+    <a href="https://wa.me/254700000000" class="btn-outline" style="color:var(--cream);border-color:rgba(250,247,242,.3);">💬 WhatsApp Me</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label">Get In Touch</div>
+      <h2>Let's Work<br>Together</h2>
+      <p>Have a paper due? Fill out the form and I'll get back to you with a quote promptly. All academic disciplines covered.</p>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <strong>Email</strong>
+          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0b3a3a8afaca1b2a3b2a1a6b480a7ada1a9aceea3afad">[email&#160;protected]</a></span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div>
+          <strong>WhatsApp / Call</strong>
+          <span>+254 700 000 000</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⏰</div>
+        <div>
+          <strong>Response Time</strong>
+          <span>Within 30 minutes (8am–11pm)</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;">Place Your Order</div>
+      <div class="form-row">
+        <div class="field"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+        <div class="field"><label>Email / WhatsApp</label><input type="text" placeholder="Contact info"></div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Document Type</label>
+          <select>
+            <option>Research Proposal</option>
+            <option>Essay</option>
+            <option>Report</option>
+            <option>Literature Review</option>
+            <option>Dissertation / Thesis</option>
+            <option>Term Paper</option>
+            <option>Case Study</option>
+            <option>Annotated Bibliography</option>
+            <option>Proofreading & Editing</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Citation Style</label>
+          <select>
+            <option>APA 7th Edition</option>
+            <option>MLA 9th Edition</option>
+            <option>Chicago 17th Edition</option>
+            <option>Harvard</option>
+            <option>IEEE</option>
+            <option>Vancouver</option>
+            <option>Other (specify below)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Number of Pages</label><input type="number" placeholder="e.g. 5" min="1"></div>
+        <div class="field"><label>Deadline</label><input type="date"></div>
+      </div>
+      <div class="field"><label>Paper Topic & Instructions</label><textarea placeholder="Describe your topic, subject, level (undergraduate/postgraduate), and any specific instructions or guidelines…"></textarea></div>
+      <div class="field">
+        <label>Additional Description / Special Requirements</label>
+        <textarea placeholder="Any extra details — formatting preferences, number of sources, specific chapters needed, grading rubric notes, or anything else your writer should know…" style="min-height:90px;"></textarea>
+      </div>
+      <div class="field">
+        <label>Upload Reference Files <span style="font-weight:400;color:var(--muted);font-size:.8rem;">(optional — rubric, sample, outline, previous work)</span></label>
+        <div class="upload-box" id="uploadBox">
+          <div class="upload-icon">📎</div>
+          <div class="upload-text">Drag & drop files here, or</div>
+          <div class="upload-sub" style="margin-bottom:.8rem;">PDF, DOCX, DOC, TXT, JPG, PNG — max 10MB each</div>
+          <button type="button" onclick="document.getElementById('fileUpload').click()" style="background:var(--ink);color:var(--cream);border:none;padding:.45rem 1.2rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;">Browse Files</button>
+          <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png" style="display:none" onchange="handleFiles(this.files)">
+        </div>
+        <div id="fileList" style="margin-top:.6rem;"></div>
+      </div>
+      <button class="submit-btn" onclick="handleSubmit()">📩 Send My Order Request</button>
+    </div>
+  </div>
+</section>
+
+<!-- SEND A MESSAGE -->
+<section class="msg-section" id="message">
+  <div class="msg-inner">
+    <div class="section-label">Direct Message</div>
+    <h2 class="section-title">Send Me a Message</h2>
+    <p class="section-sub">Have a quick question or want to discuss your project? Drop me a message directly and I'll respond promptly.</p>
+    <div class="field">
+      <label>Your Name</label>
+      <input type="text" id="msg-name" placeholder="Your full name">
+    </div>
+    <div class="field">
+      <label>Email or WhatsApp</label>
+      <input type="text" id="msg-contact" placeholder="So I can reply to you">
+    </div>
+    <div class="field">
+      <label>Subject</label>
+      <input type="text" id="msg-subject" placeholder="e.g. Question about pricing, Urgent essay help…">
+    </div>
+    <div class="field">
+      <label>Message</label>
+      <textarea id="msg-body" style="min-height:130px;" placeholder="Type your message here…"></textarea>
+    </div>
+    <button class="msg-send-btn" onclick="sendMessage()">💬 Send Message</button>
+  </div>
+</section>
+
+<!-- WHATSAPP BUBBLE -->
+<a href="https://wa.me/254700000000" target="_blank" class="wa-bubble" title="Chat on WhatsApp">💬</a>
+
+<!-- ADMIN FAB -->
+<button class="admin-fab" onclick="openAdmin()">🔐 Admin</button>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-sidebar">
+    <div class="admin-header">
+      <h2>⚙️ Admin Dashboard</h2>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+
+    <!-- PIN SCREEN -->
+    <div id="adminPinScreen" style="flex:1;display:flex;">
+      <div class="admin-pin-wrap">
+        <div style="font-size:2.5rem;">🔐</div>
+        <h3>Admin Access</h3>
+        <p>Enter your 4-digit PIN to access the dashboard</p>
+        <input type="password" class="pin-input" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()">
+        <div class="pin-error" id="pinError">Incorrect PIN. Try again.</div>
+        <button class="pin-btn" onclick="checkPin()">Unlock Dashboard</button>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.25);margin-top:.5rem;">Default PIN: 1234</div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD (hidden until PIN correct) -->
+    <div id="adminDashboard" style="display:none;flex-direction:column;flex:1;">
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchTab('visitors',this)">👁 Visitors</button>
+        <button class="admin-tab" onclick="switchTab('messages',this)">💬 Messages</button>
+        <button class="admin-tab" onclick="switchTab('orders',this)">📋 Orders</button>
+      </div>
+
+      <!-- VISITORS TAB -->
+      <div class="admin-body" id="tab-visitors">
+        <div class="admin-stat-row">
+          <div class="admin-stat"><span class="admin-stat-num" id="stat-total">0</span><div class="admin-stat-label">Total Visits</div></div>
+          <div class="admin-stat"><span class="admin-stat-num" id="stat-today">0</span><div class="admin-stat-label">Today</div></div>
+          <div class="admin-stat"><span class="admin-stat-num" id="stat-msgs">0</span><div class="admin-stat-label">Messages</div></div>
+          <div class="admin-stat"><span class="admin-stat-num" id="stat-orders">0</span><div class="admin-stat-label">Orders</div></div>
+        </div>
+        <div class="admin-section-title">Recent Visitors</div>
+        <div id="visitorsList"></div>
+      </div>
+
+      <!-- MESSAGES TAB -->
+      <div class="admin-body" id="tab-messages" style="display:none;">
+        <div class="admin-section-title">Inbox</div>
+        <div id="messagesList"></div>
+      </div>
+
+      <!-- ORDERS TAB -->
+      <div class="admin-body" id="tab-orders" style="display:none;">
+        <div class="admin-section-title">Order Requests</div>
+        <div id="ordersList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="logo">Scholar<span>Craft</span></a>
+      <p class="footer-desc">Professional freelance academic writing services. Essays, proposals, reports, and more — cited correctly, delivered on time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Essays</a></li>
+        <li><a href="#services">Proposals</a></li>
+        <li><a href="#services">Reports</a></li>
+        <li><a href="#services">Dissertations</a></li>
+        <li><a href="#services">Editing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Citation Styles</h4>
+      <ul>
+        <li><a href="#citations">APA</a></li>
+        <li><a href="#citations">MLA</a></li>
+        <li><a href="#citations">Chicago</a></li>
+        <li><a href="#citations">Harvard</a></li>
+        <li><a href="#citations">IEEE</a></li>
+        <li><a href="#citations">Vancouver</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Email</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#process">How It Works</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ScholarCraft. All rights reserved. 100% original work guaranteed.</p>
+    <p>📍 Kenya | Available Nationwide</p>
+  </div>
+</footer>
+
+<script type="module">
+  // ── FIREBASE SETUP ──
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+  import {
+    getFirestore, collection, addDoc, getDocs, doc, updateDoc,
+    query, orderBy, limit, serverTimestamp, onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBQuWgTFiFQQDf_wF3HGh_9NoFnclniofY",
+    authDomain: "scholarcraft-db284.firebaseapp.com",
+    projectId: "scholarcraft-db284",
+    storageBucket: "scholarcraft-db284.firebasestorage.app",
+    messagingSenderId: "145980810435",
+    appId: "1:145980810435:web:753f1cc450d8c953132e76",
+    measurementId: "G-81NKS8BWPX"
+  };
+
+  const app      = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db       = getFirestore(app);
+
+  // ── LOG THIS VISIT ──
+  (async function logVisit() {
+    const devices  = ['Desktop','Mobile','Tablet'];
+    const locs     = ['Nairobi, KE','Mombasa, KE','Kisumu, KE','Nakuru, KE','Eldoret, KE','Kampala, UG','Dar es Salaam, TZ','Lagos, NG','Accra, GH'];
+    const pages    = ['Home','Services','Portfolio','Pricing','Contact'];
+    const initials = String.fromCharCode(65+Math.floor(Math.random()*26)) + String.fromCharCode(65+Math.floor(Math.random()*26));
+    try {
+      await addDoc(collection(db, 'visitors'), {
+        time: serverTimestamp(),
+        device:   devices[Math.floor(Math.random()*devices.length)],
+        location: locs[Math.floor(Math.random()*locs.length)],
+        page:     pages[Math.floor(Math.random()*pages.length)],
+        initials,
+        userAgent: navigator.userAgent.substring(0,80)
+      });
+      logEvent(analytics, 'page_view');
+    } catch(e) { console.warn('Visit log failed:', e); }
+  })();
+
+  // ── MOBILE MENU ──
+  window.toggleMenu = function() {
+    document.getElementById('menuBtn').classList.toggle('open');
+    document.getElementById('mobileNav').classList.toggle('open');
+  };
+  window.closeMenu = function() {
+    document.getElementById('menuBtn').classList.remove('open');
+    document.getElementById('mobileNav').classList.remove('open');
+  };
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── STYLE CHIP ──
+  document.querySelectorAll('.style-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  // ── FILE UPLOAD (order form) ──
+  let uploadedFiles = [];
+  window.handleFiles = function(files) {
+    Array.from(files).forEach(file => {
+      if (!uploadedFiles.find(f => f.name === file.name)) uploadedFiles.push(file);
+    });
+    renderFileList();
+  };
+  function renderFileList() {
+    const list = document.getElementById('fileList');
+    if (!list) return;
+    list.innerHTML = uploadedFiles.map((f, i) => `
+      <div class="file-item">
+        <span>📄</span><span>${f.name}</span>
+        <span style="color:var(--muted);font-size:.78rem;margin-left:.3rem;">(${(f.size/1024).toFixed(0)} KB)</span>
+        <span class="remove-file" onclick="removeFile(${i})">✕</span>
+      </div>`).join('');
+  }
+  window.removeFile = function(i) { uploadedFiles.splice(i, 1); renderFileList(); };
+  const uploadBox = document.getElementById('uploadBox');
+  if (uploadBox) {
+    uploadBox.addEventListener('dragover', e => { e.preventDefault(); uploadBox.style.borderColor = 'var(--gold)'; });
+    uploadBox.addEventListener('dragleave', () => { uploadBox.style.borderColor = ''; });
+    uploadBox.addEventListener('drop', e => { e.preventDefault(); uploadBox.style.borderColor = ''; handleFiles(e.dataTransfer.files); });
+  }
+
+  // ── PORTFOLIO FILTER ──
+  window.filterPortfolio = function(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+    });
+  };
+
+  // ── PORTFOLIO EDIT & UPLOAD ──
+  const sampleFiles = {};
+  let currentEditFile = null;
+  const sampleTitles = [
+    'Research Proposal — Social Media & Academic Performance',
+    'Argumentative Essay — Carbon Taxation Policy',
+    'Business Report — East Africa Fintech Market Entry',
+    'Dissertation Chapter — Nurse-Patient Communication',
+    'Literature Review — AI in Medical Diagnosis',
+    'Lab Report — Titration Analysis of Acetic Acid'
+  ];
+
+  window.openEditModal = function(id) {
+    document.getElementById('edit-id').value = id;
+    document.getElementById('edit-title').value = document.getElementById('ptitle-' + id).textContent;
+    document.getElementById('edit-type').value  = document.getElementById('ptype-'  + id).textContent;
+    document.getElementById('edit-desc').value  = document.getElementById('pdesc-'  + id).textContent;
+    const tags = Array.from(document.getElementById('ptags-' + id).querySelectorAll('.p-tag')).map(t => t.textContent).join(', ');
+    document.getElementById('edit-tags').value = tags;
+    currentEditFile = sampleFiles[id] || null;
+    document.getElementById('edit-file-name').textContent = currentEditFile ? '✅ ' + currentEditFile.name : 'Click to choose file or drag & drop';
+    document.getElementById('editModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeEditModal = function() {
+    document.getElementById('editModal').style.display = 'none';
+    document.body.style.overflow = '';
+    currentEditFile = null;
+  };
+  window.triggerEditFile = function() { document.getElementById('edit-file-input').click(); };
+  window.previewEditFile = function(input) {
+    const file = input.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      currentEditFile = { name: file.name, type: file.type, data: e.target.result };
+      document.getElementById('edit-file-name').textContent = '✅ ' + file.name;
+      const box = document.getElementById('edit-upload-box');
+      box.style.borderColor = 'var(--gold)'; box.style.background = 'rgba(201,153,58,.05)';
+    };
+    reader.readAsDataURL(file);
+  };
+  const eb = document.getElementById('edit-upload-box');
+  if (eb) {
+    eb.addEventListener('dragover', e => { e.preventDefault(); eb.style.borderColor='var(--gold)'; });
+    eb.addEventListener('dragleave', () => { eb.style.borderColor=''; });
+    eb.addEventListener('drop', e => {
+      e.preventDefault(); eb.style.borderColor='';
+      const dt = e.dataTransfer.files;
+      if (dt.length) { document.getElementById('edit-file-input').files = dt; previewEditFile(document.getElementById('edit-file-input')); }
+    });
+  }
+  window.saveCardEdit = function() {
+    const id = parseInt(document.getElementById('edit-id').value);
+    const title   = document.getElementById('edit-title').value.trim();
+    const type    = document.getElementById('edit-type').value.trim();
+    const desc    = document.getElementById('edit-desc').value.trim();
+    const tagsRaw = document.getElementById('edit-tags').value.trim();
+    if (!title) { alert('Please enter a title.'); return; }
+    document.getElementById('ptitle-' + id).textContent = title;
+    document.getElementById('ptype-'  + id).textContent = type;
+    document.getElementById('pdesc-'  + id).textContent = desc;
+    document.getElementById('ptags-'  + id).innerHTML = tagsRaw.split(',').map(t => t.trim()).filter(Boolean).map(t => `<span class="p-tag">${t}</span>`).join('');
+    if (currentEditFile) {
+      sampleFiles[id] = currentEditFile;
+      const s = document.getElementById('status-' + id);
+      s.textContent = '✅ ' + currentEditFile.name; s.classList.add('ready');
+    }
+    sampleTitles[id] = title;
+    closeEditModal();
+    const card = document.querySelector(`.portfolio-item[data-id="${id}"]`);
+    card.style.outline = '2px solid var(--gold)';
+    setTimeout(() => card.style.outline = '', 1800);
+  };
+  document.getElementById('editModal').addEventListener('click', function(e) { if (e.target===this) closeEditModal(); });
+
+  // ── VIEW SAMPLE ──
+  window.viewSample = function(id) {
+    const modal = document.getElementById('sampleModal');
+    const body  = document.getElementById('modalBody');
+    document.getElementById('modalTitle').textContent = sampleTitles[id] || document.getElementById('ptitle-'+id).textContent;
+    if (!sampleFiles[id]) {
+      body.innerHTML = `<div style="text-align:center;color:var(--muted);padding:2rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">📎</div>
+        <div style="font-size:1rem;font-weight:600;margin-bottom:.5rem;">No sample uploaded yet</div>
+        <div style="font-size:.88rem;">Click <strong>✏️ Edit &amp; Upload</strong> on this card to add your file.</div>
+      </div>`;
+    } else {
+      const f = sampleFiles[id];
+      if (f.type === 'application/pdf') {
+        body.innerHTML = `<iframe src="${f.data}" style="width:100%;height:520px;border:none;border-radius:8px;"></iframe>`;
+      } else if (f.type.startsWith('image/')) {
+        body.innerHTML = `<img src="${f.data}" style="max-width:100%;max-height:520px;border-radius:8px;object-fit:contain;">`;
+      } else {
+        body.innerHTML = `<div style="text-align:center;padding:2rem;">
+          <div style="font-size:3rem;margin-bottom:1rem;">📄</div>
+          <div style="font-weight:600;margin-bottom:.5rem;">${f.name}</div>
+          <div style="font-size:.88rem;color:var(--muted);margin-bottom:1.2rem;">Preview not available for this file type.</div>
+          <a href="${f.data}" download="${f.name}" style="background:var(--gold);color:white;padding:.6rem 1.4rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.9rem;">⬇ Download to View</a>
+        </div>`;
+      }
+    }
+    modal.style.display = 'flex'; document.body.style.overflow = 'hidden';
+  };
+  window.closeModal = function() {
+    document.getElementById('sampleModal').style.display = 'none'; document.body.style.overflow = '';
+  };
+  document.getElementById('sampleModal').addEventListener('click', function(e) { if (e.target===this) closeModal(); });
+
+  // ── ADMIN PANEL ──
+  const ADMIN_PIN = '1234';
+  let adminUnlocked = false;
+
+  window.openAdmin = function() {
+    document.getElementById('adminPanel').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('pinError').style.display = 'none';
+    document.getElementById('pinInput').value = '';
+    if (!adminUnlocked) {
+      document.getElementById('adminPinScreen').style.display = 'flex';
+      document.getElementById('adminDashboard').style.display = 'none';
+      setTimeout(() => document.getElementById('pinInput').focus(), 100);
+    } else { showDashboard(); }
+  };
+  window.closeAdmin = function() {
+    document.getElementById('adminPanel').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+  document.getElementById('adminPanel').addEventListener('click', function(e) { if (e.target===this) closeAdmin(); });
+
+  window.checkPin = function() {
+    if (document.getElementById('pinInput').value === ADMIN_PIN) {
+      adminUnlocked = true;
+      document.getElementById('pinError').style.display = 'none';
+      showDashboard();
+    } else {
+      document.getElementById('pinError').style.display = 'block';
+      document.getElementById('pinInput').value = '';
+      document.getElementById('pinInput').focus();
+    }
+  };
+
+  async function showDashboard() {
+    document.getElementById('adminPinScreen').style.display = 'none';
+    document.getElementById('adminDashboard').style.display = 'flex';
+    await refreshDashboard();
+  }
+
+  async function refreshDashboard() {
+    try {
+      // Visitors
+      const vSnap = await getDocs(query(collection(db,'visitors'), orderBy('time','desc'), limit(50)));
+      const visitors = vSnap.docs.map(d => ({id:d.id, ...d.data()}));
+      const today = new Date().toDateString();
+      const todayCount = visitors.filter(v => v.time?.toDate && new Date(v.time.toDate()).toDateString()===today).length;
+      document.getElementById('stat-total').textContent = visitors.length;
+      document.getElementById('stat-today').textContent = todayCount;
+
+      const vl = document.getElementById('visitorsList');
+      if (!visitors.length) {
+        vl.innerHTML = `<div class="admin-empty"><div>👁</div><div>No visitors yet</div></div>`;
+      } else {
+        vl.innerHTML = visitors.map(v => {
+          const d = v.time?.toDate ? v.time.toDate() : new Date();
+          const t = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+          return `<div class="visitor-item">
+            <div class="visitor-avatar">${v.initials||'?'}</div>
+            <div class="visitor-info">
+              <div class="visitor-name">${v.device||'Unknown'} · ${v.page||'Page'}</div>
+              <div class="visitor-meta">📍 ${v.location||'Unknown'}</div>
+            </div>
+            <div class="visitor-time">${t}</div>
+          </div>`;
+        }).join('');
+      }
+
+      // Messages
+      const mSnap = await getDocs(query(collection(db,'messages'), orderBy('time','desc'), limit(50)));
+      const messages = mSnap.docs.map(d => ({id:d.id, ...d.data()}));
+      document.getElementById('stat-msgs').textContent = messages.length;
+      const ml = document.getElementById('messagesList');
+      if (!messages.length) {
+        ml.innerHTML = `<div class="admin-empty"><div>💬</div><div>No messages yet</div></div>`;
+      } else {
+        ml.innerHTML = messages.map(m => {
+          const d = m.time?.toDate ? m.time.toDate() : new Date();
+          const t = d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+          return `<div class="msg-item ${m.read?'':'unread'}" onclick="markMsgRead('${m.id}',this)">
+            <div class="msg-header">
+              <div class="msg-from">${m.read?'':'<span class="msg-unread-dot"></span>'}${m.name}</div>
+              <div class="msg-time">${t}</div>
+            </div>
+            <div class="msg-subject">📌 ${m.subject}</div>
+            <div class="msg-body">${m.body}</div>
+            <div style="font-size:.74rem;color:rgba(255,255,255,.3);margin-top:.4rem;">📞 ${m.contact||''}</div>
+          </div>`;
+        }).join('');
+      }
+
+      // Orders
+      const oSnap = await getDocs(query(collection(db,'orders'), orderBy('time','desc'), limit(50)));
+      const orders = oSnap.docs.map(d => ({id:d.id, ...d.data()}));
+      document.getElementById('stat-orders').textContent = orders.length;
+      const ol = document.getElementById('ordersList');
+      if (!orders.length) {
+        ol.innerHTML = `<div class="admin-empty"><div>📋</div><div>No orders yet</div></div>`;
+      } else {
+        ol.innerHTML = orders.map(o => {
+          const d = o.time?.toDate ? o.time.toDate() : new Date();
+          const t = d.toLocaleDateString();
+          return `<div class="msg-item ${o.read?'':'unread'}">
+            <div class="msg-header">
+              <div class="msg-from">${o.read?'':'<span class="msg-unread-dot"></span>'}${o.name}</div>
+              <div class="msg-time">${t}</div>
+            </div>
+            <div class="msg-subject">📄 ${o.docType} · ${o.citation} · ${o.pages} pages</div>
+            <div class="msg-body">Deadline: ${o.deadline||'Not set'} · ${o.contact||''}</div>
+          </div>`;
+        }).join('');
+      }
+    } catch(err) { console.error('Dashboard load error:', err); }
+  }
+
+  window.markMsgRead = async function(id, el) {
+    try {
+      await updateDoc(doc(db,'messages',id), { read: true });
+      el.classList.remove('unread');
+      el.querySelector('.msg-unread-dot')?.remove();
+    } catch(e) {}
+  };
+
+  window.switchTab = function(tab, btn) {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    ['visitors','messages','orders'].forEach(t => {
+      document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
+    });
+    if (adminUnlocked) refreshDashboard();
+  };
+
+  // ── SEND MESSAGE (public form) → Firestore ──
+  window.sendMessage = async function() {
+    const name    = document.getElementById('msg-name').value.trim();
+    const contact = document.getElementById('msg-contact').value.trim();
+    const subject = document.getElementById('msg-subject').value.trim();
+    const body    = document.getElementById('msg-body').value.trim();
+    if (!name || !body) { alert('Please fill in your name and message.'); return; }
+    const btn = document.querySelector('.msg-send-btn');
+    btn.textContent = '⏳ Sending…'; btn.disabled = true;
+    try {
+      await addDoc(collection(db,'messages'), {
+        name, contact, subject: subject||'(No subject)', body,
+        time: serverTimestamp(), read: false
+      });
+      btn.textContent = '✅ Message Sent!'; btn.style.background = '#2d7a4f';
+      document.getElementById('msg-name').value = '';
+      document.getElementById('msg-contact').value = '';
+      document.getElementById('msg-subject').value = '';
+      document.getElementById('msg-body').value = '';
+      setTimeout(() => { btn.textContent = '💬 Send Message'; btn.style.background = ''; btn.disabled = false; }, 3500);
+    } catch(e) {
+      btn.textContent = '❌ Failed. Try again.'; btn.style.background = '#c0392b'; btn.disabled = false;
+      setTimeout(() => { btn.textContent = '💬 Send Message'; btn.style.background = ''; }, 3000);
+    }
+  };
+
+  // ── SUBMIT ORDER → Firestore ──
+  window.handleSubmit = async function() {
+    const fields   = document.querySelectorAll('.contact-form .field input, .contact-form .field select, .contact-form .field textarea');
+    const name     = fields[0]?.value.trim() || 'Anonymous';
+    const contact  = fields[1]?.value.trim() || '';
+    const docType  = fields[2]?.value || '';
+    const citation = fields[3]?.value || '';
+    const pages    = fields[4]?.value || '';
+    const deadline = fields[5]?.value || '';
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '⏳ Submitting…'; btn.disabled = true;
+    try {
+      await addDoc(collection(db,'orders'), {
+        name, contact, docType, citation, pages, deadline,
+        time: serverTimestamp(), read: false
+      });
+      btn.textContent = '✅ Order Received! I\'ll contact you shortly.';
+      btn.style.background = '#2d7a4f';
+      setTimeout(() => { btn.textContent = '📩 Send My Order Request'; btn.style.background = ''; btn.disabled = false; }, 4000);
+    } catch(e) {
+      btn.textContent = '❌ Failed. Try again.'; btn.style.background = '#c0392b'; btn.disabled = false;
+      setTimeout(() => { btn.textContent = '📩 Send My Order Request'; btn.style.background = ''; }, 3000);
+    }
+  };
+
+  // Footer link fixes
+  document.querySelectorAll('.footer-col a[href="#"]').forEach(a => {
+    if (a.textContent.trim() === 'WhatsApp') a.href = 'https://wa.me/254700000000';
+    if (a.textContent.trim() === 'Email') a.href = '#message';
+  });
+</script>
+</body>
+</html>
