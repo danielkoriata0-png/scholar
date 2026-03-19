@@ -1535,28 +1535,12 @@
   </div>
 </footer>
 
-<script type="module">
-  // ── FIREBASE SETUP ──
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-  import {
-    getFirestore, collection, addDoc, getDocs, doc, updateDoc,
-    query, orderBy, limit, serverTimestamp, onSnapshot
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBQuWgTFiFQQDf_wF3HGh_9NoFnclniofY",
-    authDomain: "scholarcraft-db284.firebaseapp.com",
-    projectId: "scholarcraft-db284",
-    storageBucket: "scholarcraft-db284.firebasestorage.app",
-    messagingSenderId: "145980810435",
-    appId: "1:145980810435:web:753f1cc450d8c953132e76",
-    measurementId: "G-81NKS8BWPX"
-  };
-
-  const app      = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db       = getFirestore(app);
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ── SUPABASE SETUP ──
+  const SUPABASE_URL  = 'https://ahaxjncndkkmfotzplmj.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoYXhqbmNuZGtrbWZvdHpwbG1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NTU1NzIsImV4cCI6MjA4OTUzMTU3Mn0.2KaGB_RK-4_FkXGUzAf8ZYF27qELlRWVe74DUy7F24I';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
   // ── LOG THIS VISIT ──
   (async function logVisit() {
@@ -1565,15 +1549,14 @@
     const pages    = ['Home','Services','Portfolio','Pricing','Contact'];
     const initials = String.fromCharCode(65+Math.floor(Math.random()*26)) + String.fromCharCode(65+Math.floor(Math.random()*26));
     try {
-      await addDoc(collection(db, 'visitors'), {
-        time: serverTimestamp(),
-        device:   devices[Math.floor(Math.random()*devices.length)],
-        location: locs[Math.floor(Math.random()*locs.length)],
-        page:     pages[Math.floor(Math.random()*pages.length)],
+      await db.from('visitors').insert([{
+        created_at: new Date().toISOString(),
+        device:     devices[Math.floor(Math.random()*devices.length)],
+        location:   locs[Math.floor(Math.random()*locs.length)],
+        page:       pages[Math.floor(Math.random()*pages.length)],
         initials,
-        userAgent: navigator.userAgent.substring(0,80)
-      });
-      logEvent(analytics, 'page_view');
+        user_agent: navigator.userAgent.substring(0,80)
+      }]);
     } catch(e) { console.warn('Visit log failed:', e); }
   })();
 
@@ -1786,22 +1769,20 @@
   async function refreshDashboard() {
     try {
       // Visitors
-      const vSnap = await getDocs(query(collection(db,'visitors'), orderBy('time','desc'), limit(50)));
-      const visitors = vSnap.docs.map(d => ({id:d.id, ...d.data()}));
+      const { data: visitors } = await db.from('visitors').select('*').order('created_at', { ascending: false }).limit(50);
       const today = new Date().toDateString();
-      const todayCount = visitors.filter(v => v.time?.toDate && new Date(v.time.toDate()).toDateString()===today).length;
-      document.getElementById('stat-total').textContent = visitors.length;
+      const todayCount = (visitors||[]).filter(v => new Date(v.created_at).toDateString() === today).length;
+      document.getElementById('stat-total').textContent = (visitors||[]).length;
       document.getElementById('stat-today').textContent = todayCount;
-
       const vl = document.getElementById('visitorsList');
-      if (!visitors.length) {
+      if (!visitors || !visitors.length) {
         vl.innerHTML = `<div class="admin-empty"><div>👁</div><div>No visitors yet</div></div>`;
       } else {
         vl.innerHTML = visitors.map(v => {
-          const d = v.time?.toDate ? v.time.toDate() : new Date();
+          const d = new Date(v.created_at);
           const t = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
           return `<div class="visitor-item">
-            <div class="visitor-avatar">${v.initials||'?'}</div>
+            <div class="visitor-avatar">${v.initials||'??'}</div>
             <div class="visitor-info">
               <div class="visitor-name">${v.device||'Unknown'} · ${v.page||'Page'}</div>
               <div class="visitor-meta">📍 ${v.location||'Unknown'}</div>
@@ -1812,17 +1793,16 @@
       }
 
       // Messages
-      const mSnap = await getDocs(query(collection(db,'messages'), orderBy('time','desc'), limit(50)));
-      const messages = mSnap.docs.map(d => ({id:d.id, ...d.data()}));
-      document.getElementById('stat-msgs').textContent = messages.length;
+      const { data: messages } = await db.from('messages').select('*').order('created_at', { ascending: false }).limit(50);
+      document.getElementById('stat-msgs').textContent = (messages||[]).length;
       const ml = document.getElementById('messagesList');
-      if (!messages.length) {
+      if (!messages || !messages.length) {
         ml.innerHTML = `<div class="admin-empty"><div>💬</div><div>No messages yet</div></div>`;
       } else {
         ml.innerHTML = messages.map(m => {
-          const d = m.time?.toDate ? m.time.toDate() : new Date();
+          const d = new Date(m.created_at);
           const t = d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-          return `<div class="msg-item ${m.read?'':'unread'}" onclick="markMsgRead('${m.id}',this)">
+          return `<div class="msg-item ${m.read?'':'unread'}" onclick="markMsgRead(${m.id},this)">
             <div class="msg-header">
               <div class="msg-from">${m.read?'':'<span class="msg-unread-dot"></span>'}${m.name}</div>
               <div class="msg-time">${t}</div>
@@ -1835,32 +1815,31 @@
       }
 
       // Orders
-      const oSnap = await getDocs(query(collection(db,'orders'), orderBy('time','desc'), limit(50)));
-      const orders = oSnap.docs.map(d => ({id:d.id, ...d.data()}));
-      document.getElementById('stat-orders').textContent = orders.length;
+      const { data: orders } = await db.from('orders').select('*').order('created_at', { ascending: false }).limit(50);
+      document.getElementById('stat-orders').textContent = (orders||[]).length;
       const ol = document.getElementById('ordersList');
-      if (!orders.length) {
+      if (!orders || !orders.length) {
         ol.innerHTML = `<div class="admin-empty"><div>📋</div><div>No orders yet</div></div>`;
       } else {
         ol.innerHTML = orders.map(o => {
-          const d = o.time?.toDate ? o.time.toDate() : new Date();
+          const d = new Date(o.created_at);
           const t = d.toLocaleDateString();
           return `<div class="msg-item ${o.read?'':'unread'}">
             <div class="msg-header">
               <div class="msg-from">${o.read?'':'<span class="msg-unread-dot"></span>'}${o.name}</div>
               <div class="msg-time">${t}</div>
             </div>
-            <div class="msg-subject">📄 ${o.docType} · ${o.citation} · ${o.pages} pages</div>
+            <div class="msg-subject">📄 ${o.doc_type} · ${o.citation} · ${o.pages} pages</div>
             <div class="msg-body">Deadline: ${o.deadline||'Not set'} · ${o.contact||''}</div>
           </div>`;
         }).join('');
       }
-    } catch(err) { console.error('Dashboard load error:', err); }
+    } catch(err) { console.error('Dashboard error:', err); }
   }
 
   window.markMsgRead = async function(id, el) {
     try {
-      await updateDoc(doc(db,'messages',id), { read: true });
+      await db.from('messages').update({ read: true }).eq('id', id);
       el.classList.remove('unread');
       el.querySelector('.msg-unread-dot')?.remove();
     } catch(e) {}
@@ -1875,7 +1854,7 @@
     if (adminUnlocked) refreshDashboard();
   };
 
-  // ── SEND MESSAGE (public form) → Firestore ──
+  // ── SEND MESSAGE (public form) → Supabase ──
   window.sendMessage = async function() {
     const name    = document.getElementById('msg-name').value.trim();
     const contact = document.getElementById('msg-contact').value.trim();
@@ -1885,10 +1864,11 @@
     const btn = document.querySelector('.msg-send-btn');
     btn.textContent = '⏳ Sending…'; btn.disabled = true;
     try {
-      await addDoc(collection(db,'messages'), {
+      const { error } = await db.from('messages').insert([{
         name, contact, subject: subject||'(No subject)', body,
-        time: serverTimestamp(), read: false
-      });
+        created_at: new Date().toISOString(), read: false
+      }]);
+      if (error) throw error;
       btn.textContent = '✅ Message Sent!'; btn.style.background = '#2d7a4f';
       document.getElementById('msg-name').value = '';
       document.getElementById('msg-contact').value = '';
@@ -1896,31 +1876,34 @@
       document.getElementById('msg-body').value = '';
       setTimeout(() => { btn.textContent = '💬 Send Message'; btn.style.background = ''; btn.disabled = false; }, 3500);
     } catch(e) {
+      console.error(e);
       btn.textContent = '❌ Failed. Try again.'; btn.style.background = '#c0392b'; btn.disabled = false;
       setTimeout(() => { btn.textContent = '💬 Send Message'; btn.style.background = ''; }, 3000);
     }
   };
 
-  // ── SUBMIT ORDER → Firestore ──
+  // ── SUBMIT ORDER → Supabase ──
   window.handleSubmit = async function() {
     const fields   = document.querySelectorAll('.contact-form .field input, .contact-form .field select, .contact-form .field textarea');
     const name     = fields[0]?.value.trim() || 'Anonymous';
     const contact  = fields[1]?.value.trim() || '';
-    const docType  = fields[2]?.value || '';
+    const doc_type = fields[2]?.value || '';
     const citation = fields[3]?.value || '';
     const pages    = fields[4]?.value || '';
     const deadline = fields[5]?.value || '';
     const btn = document.querySelector('.submit-btn');
     btn.textContent = '⏳ Submitting…'; btn.disabled = true;
     try {
-      await addDoc(collection(db,'orders'), {
-        name, contact, docType, citation, pages, deadline,
-        time: serverTimestamp(), read: false
-      });
+      const { error } = await db.from('orders').insert([{
+        name, contact, doc_type, citation, pages, deadline,
+        created_at: new Date().toISOString(), read: false
+      }]);
+      if (error) throw error;
       btn.textContent = '✅ Order Received! I\'ll contact you shortly.';
       btn.style.background = '#2d7a4f';
       setTimeout(() => { btn.textContent = '📩 Send My Order Request'; btn.style.background = ''; btn.disabled = false; }, 4000);
     } catch(e) {
+      console.error(e);
       btn.textContent = '❌ Failed. Try again.'; btn.style.background = '#c0392b'; btn.disabled = false;
       setTimeout(() => { btn.textContent = '📩 Send My Order Request'; btn.style.background = ''; }, 3000);
     }
