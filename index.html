@@ -1638,8 +1638,10 @@
     document.getElementById('edit-desc').value  = document.getElementById('pdesc-'  + id).textContent;
     const tags = Array.from(document.getElementById('ptags-' + id).querySelectorAll('.p-tag')).map(t => t.textContent).join(', ');
     document.getElementById('edit-tags').value = tags;
-    currentEditFile = sampleFiles[id] || null;
-    document.getElementById('edit-file-name').textContent = currentEditFile ? '✅ ' + currentEditFile.name : 'Click to choose file or drag & drop';
+    currentEditFile = null;
+    // show existing file name from storage if saved
+    const saved = portfolioMeta[id];
+    document.getElementById('edit-file-name').textContent = saved ? '✅ ' + saved.file_name : 'Click to choose file or drag & drop';
     document.getElementById('editModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
   };
@@ -1651,14 +1653,10 @@
   window.triggerEditFile = function() { document.getElementById('edit-file-input').click(); };
   window.previewEditFile = function(input) {
     const file = input.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      currentEditFile = { name: file.name, type: file.type, data: e.target.result };
-      document.getElementById('edit-file-name').textContent = '✅ ' + file.name;
-      const box = document.getElementById('edit-upload-box');
-      box.style.borderColor = 'var(--gold)'; box.style.background = 'rgba(201,153,58,.05)';
-    };
-    reader.readAsDataURL(file);
+    currentEditFile = file;
+    document.getElementById('edit-file-name').textContent = '✅ ' + file.name;
+    const box = document.getElementById('edit-upload-box');
+    box.style.borderColor = 'var(--gold)'; box.style.background = 'rgba(201,153,58,.05)';
   };
   const eb = document.getElementById('edit-upload-box');
   if (eb) {
@@ -1670,53 +1668,117 @@
       if (dt.length) { document.getElementById('edit-file-input').files = dt; previewEditFile(document.getElementById('edit-file-input')); }
     });
   }
-  window.saveCardEdit = function() {
-    const id = parseInt(document.getElementById('edit-id').value);
-    const title   = document.getElementById('edit-title').value.trim();
-    const type    = document.getElementById('edit-type').value.trim();
-    const desc    = document.getElementById('edit-desc').value.trim();
-    const tagsRaw = document.getElementById('edit-tags').value.trim();
+
+  // portfolio metadata stored in Supabase
+  const portfolioMeta = {};
+
+  window.saveCardEdit = async function() {
+    const id       = parseInt(document.getElementById('edit-id').value);
+    const title    = document.getElementById('edit-title').value.trim();
+    const type     = document.getElementById('edit-type').value.trim();
+    const desc     = document.getElementById('edit-desc').value.trim();
+    const tagsRaw  = document.getElementById('edit-tags').value.trim();
     if (!title) { alert('Please enter a title.'); return; }
-    document.getElementById('ptitle-' + id).textContent = title;
-    document.getElementById('ptype-'  + id).textContent = type;
-    document.getElementById('pdesc-'  + id).textContent = desc;
-    document.getElementById('ptags-'  + id).innerHTML = tagsRaw.split(',').map(t => t.trim()).filter(Boolean).map(t => `<span class="p-tag">${t}</span>`).join('');
-    if (currentEditFile) {
-      sampleFiles[id] = currentEditFile;
+
+    // Show saving indicator
+    const saveBtn = document.querySelector('#editModal button[onclick="saveCardEdit()"]');
+    const origText = saveBtn.textContent;
+    saveBtn.textContent = '⏳ Saving…'; saveBtn.disabled = true;
+
+    try {
+      let fileUrl = portfolioMeta[id]?.file_url || null;
+      let fileName = portfolioMeta[id]?.file_name || null;
+
+      // Upload file to Supabase Storage if new file selected
+      if (currentEditFile) {
+        const ext = currentEditFile.name.split('.').pop();
+        const path = `card-${id}-${Date.now()}.${ext}`;
+        const { error: upErr } = await db.storage.from('portfolio').upload(path, currentEditFile, { upsert: true });
+        if (upErr) throw upErr;
+        const { data: urlData } = db.storage.from('portfolio').getPublicUrl(path);
+        fileUrl  = urlData.publicUrl;
+        fileName = currentEditFile.name;
+      }
+
+      // Save metadata to Supabase portfolio table
+      const { error: dbErr } = await db.from('portfolio').upsert([{
+        card_id: id, title, type, description: desc, tags: tagsRaw,
+        file_url: fileUrl, file_name: fileName,
+        updated_at: new Date().toISOString()
+      }], { onConflict: 'card_id' });
+      if (dbErr) throw dbErr;
+
+      // Update in-memory meta
+      portfolioMeta[id] = { file_url: fileUrl, file_name: fileName };
+
+      // Update card UI
+      document.getElementById('ptitle-' + id).textContent = title;
+      document.getElementById('ptype-'  + id).textContent = type;
+      document.getElementById('pdesc-'  + id).textContent = desc;
+      document.getElementById('ptags-'  + id).innerHTML = tagsRaw.split(',').map(t => t.trim()).filter(Boolean).map(t => `<span class="p-tag">${t}</span>`).join('');
       const s = document.getElementById('status-' + id);
-      s.textContent = '✅ ' + currentEditFile.name; s.classList.add('ready');
+      if (fileUrl) { s.textContent = '✅ ' + fileName; s.classList.add('ready'); }
+      sampleTitles[id] = title;
+      closeEditModal();
+      const card = document.querySelector(`.portfolio-item[data-id="${id}"]`);
+      card.style.outline = '2px solid var(--gold)';
+      setTimeout(() => card.style.outline = '', 1800);
+
+    } catch(e) {
+      console.error(e);
+      alert('Save failed: ' + e.message);
+      saveBtn.textContent = origText; saveBtn.disabled = false;
     }
-    sampleTitles[id] = title;
-    closeEditModal();
-    const card = document.querySelector(`.portfolio-item[data-id="${id}"]`);
-    card.style.outline = '2px solid var(--gold)';
-    setTimeout(() => card.style.outline = '', 1800);
   };
   document.getElementById('editModal').addEventListener('click', function(e) { if (e.target===this) closeEditModal(); });
+
+  // Load portfolio metadata on page load
+  (async function loadPortfolio() {
+    try {
+      const { data } = await db.from('portfolio').select('*');
+      if (!data) return;
+      data.forEach(item => {
+        const id = item.card_id;
+        portfolioMeta[id] = { file_url: item.file_url, file_name: item.file_name };
+        if (item.title)       document.getElementById('ptitle-'+id).textContent = item.title;
+        if (item.type)        document.getElementById('ptype-' +id).textContent = item.type;
+        if (item.description) document.getElementById('pdesc-' +id).textContent = item.description;
+        if (item.tags)        document.getElementById('ptags-' +id).innerHTML = item.tags.split(',').map(t=>`<span class="p-tag">${t.trim()}</span>`).join('');
+        if (item.file_name) {
+          const s = document.getElementById('status-'+id);
+          s.textContent = '✅ ' + item.file_name; s.classList.add('ready');
+        }
+        if (item.title) sampleTitles[id] = item.title;
+      });
+    } catch(e) { console.warn('Portfolio load:', e); }
+  })();
 
   // ── VIEW SAMPLE ──
   window.viewSample = function(id) {
     const modal = document.getElementById('sampleModal');
     const body  = document.getElementById('modalBody');
     document.getElementById('modalTitle').textContent = sampleTitles[id] || document.getElementById('ptitle-'+id).textContent;
-    if (!sampleFiles[id]) {
+    const meta = portfolioMeta[id];
+    if (!meta || !meta.file_url) {
       body.innerHTML = `<div style="text-align:center;color:var(--muted);padding:2rem;">
         <div style="font-size:3rem;margin-bottom:1rem;">📎</div>
         <div style="font-size:1rem;font-weight:600;margin-bottom:.5rem;">No sample uploaded yet</div>
         <div style="font-size:.88rem;">Click <strong>✏️ Edit &amp; Upload</strong> on this card to add your file.</div>
       </div>`;
     } else {
-      const f = sampleFiles[id];
-      if (f.type === 'application/pdf') {
-        body.innerHTML = `<iframe src="${f.data}" style="width:100%;height:520px;border:none;border-radius:8px;"></iframe>`;
-      } else if (f.type.startsWith('image/')) {
-        body.innerHTML = `<img src="${f.data}" style="max-width:100%;max-height:520px;border-radius:8px;object-fit:contain;">`;
+      const url  = meta.file_url;
+      const name = meta.file_name || '';
+      const ext  = name.split('.').pop().toLowerCase();
+      if (ext === 'pdf') {
+        body.innerHTML = `<iframe src="${url}" style="width:100%;height:520px;border:none;border-radius:8px;"></iframe>`;
+      } else if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
+        body.innerHTML = `<img src="${url}" style="max-width:100%;max-height:520px;border-radius:8px;object-fit:contain;">`;
       } else {
         body.innerHTML = `<div style="text-align:center;padding:2rem;">
           <div style="font-size:3rem;margin-bottom:1rem;">📄</div>
-          <div style="font-weight:600;margin-bottom:.5rem;">${f.name}</div>
-          <div style="font-size:.88rem;color:var(--muted);margin-bottom:1.2rem;">Preview not available for this file type.</div>
-          <a href="${f.data}" download="${f.name}" style="background:var(--gold);color:white;padding:.6rem 1.4rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.9rem;">⬇ Download to View</a>
+          <div style="font-weight:600;margin-bottom:.5rem;">${name}</div>
+          <div style="font-size:.88rem;color:var(--muted);margin-bottom:1.2rem;">Click below to download and view.</div>
+          <a href="${url}" target="_blank" style="background:var(--gold);color:white;padding:.6rem 1.4rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.9rem;">⬇ Download to View</a>
         </div>`;
       }
     }
